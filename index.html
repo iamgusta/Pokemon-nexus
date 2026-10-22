@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b16">
+  <title>Pokémon Nexus | Data Universe</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080b16;
+      --surface: #111827;
+      --border: #293247;
+      --text: #f6f8ff;
+      --muted: #9aa7c0;
+      --red: #ff3658;
+      --blue: #39b9ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 10%, #ff36581b, transparent 32%),
+        radial-gradient(circle at 85% 35%, #39b9ff13, transparent 35%);
+    }
+
+    h1, h2, h3, .logo, .number {
+      font-family: Orbitron, sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 18px 6%;
+      background: #080b16ed;
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 20px;
+      color: white;
+    }
+
+    .logo span { color: var(--red); }
+
+    nav { display: flex; gap: 24px; }
+
+    a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: .25s;
+    }
+
+    a:hover { color: var(--red); }
+
+    .hero {
+      min-height: 68vh;
+      padding: 95px 7% 80px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      align-items: center;
+      gap: 35px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: 3px;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: 1.13;
+      margin: 18px 0;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, var(--red), #ff8c62);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 580px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    button, .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 23px;
+      font-weight: 700;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    button:hover, .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .primary {
+      background: var(--red);
+      color: white;
+      box-shadow: 0 9px 35px #ff36582b;
+    }
+
+    .secondary {
+      background: #1b2639;
+      color: white;
+      border: 1px solid var(--border);
+    }
+
+    .orb {
+      width: min(330px, 75vw);
+      aspect-ratio: 1;
+      position: relative;
+      margin: auto;
+      filter: drop-shadow(0 0 55px #ff365835);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .orb::before {
+      content: "";
+      position: absolute;
+      inset: 4%;
+      border: 8px solid #0b1020;
+      border-radius: 50%;
+      background: linear-gradient(
+        to bottom,
+        #f53e55 0 46%,
+        #111827 46% 54%,
+        #eef4ff 54% 100%
+      );
+      box-shadow: inset 0 0 45px #0005;
+    }
+
+    .orb::after {
+      content: "";
+      position: absolute;
+      width: 27%;
+      height: 27%;
+      background: #f2f7ff;
+      border: 14px solid #111827;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: inset 0 0 0 9px #b8c7dc;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-7deg); }
+      50% { transform: translateY(-22px) rotate(7deg); }
+    }
+
+    section { padding: 65px 7%; }
+
+    h2 { font-size: clamp(23px, 3vw, 34px); }
+
+    .subtitle { color: var(--muted); line-height: 1.7; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .metric {
+      background: #111827bd;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .number {
+      font-size: 29px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .metric p { color: var(--muted); margin: 0; }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 27px 0;
+    }
+
+    input, select {
+      background: #161e30;
+      border: 1px solid #36415a;
+      outline: none;
+      border-radius: 12px;
+      color: white;
+      padding: 15px;
+      font: inherit;
+    }
+
+    input { flex: 1; min-width: 200px; }
+
+    input:focus, select:focus {
+      border-color: var(--blue);
+    }
+
+    .pokemon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 18px;
+    }
+
+    .pokemon-card {
+      min-width: 0;
+      text-align: center;
+      background: linear-gradient(150deg, #1b2539, #0f1422);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 15px;
+      cursor: pointer;
+      transition: .3s;
+      animation: reveal .45s ease both;
+    }
+
+    .pokemon-card:hover {
+      transform: translateY(-9px);
+      border-color: var(--blue);
+      box-shadow: 0 15px 40px #39b9ff15;
+    }
+
+    .pokemon-card img {
+      width: 145px;
+      height: 145px;
+      object-fit: contain;
+      transition: transform .3s;
+    }
+
+    .pokemon-card:hover img { transform: scale(1.15); }
+
+    .pokemon-card h3 {
+      font-size: 14px;
+      text-transform: capitalize;
+      overflow-wrap: anywhere;
+    }
+
+    .pokemon-id {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 30px;
+      background: #263951;
+      color: #bce8ff;
+      font-size: 11px;
+      margin: 3px;
+    }
+
+    .center { text-align: center; margin-top: 28px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s, transform .7s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: #030712dc;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-content {
+      width: min(500px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      background: #121b2c;
+      border: 1px solid #405173;
+      border-radius: 22px;
+      padding: 30px;
+      text-align: center;
+      animation: reveal .3s ease;
+    }
+
+    .modal-content img {
+      width: 195px;
+      height: 195px;
+      object-fit: contain;
+    }
+
+    .modal-content h2 { text-transform: capitalize; }
+
+    .close {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      padding: 8px 13px;
+      background: #28354b;
+      color: white;
+    }
+
+    .stat {
+      text-align: left;
+      margin: 13px 0;
+      font-size: 13px;
+    }
+
+    .stat-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      gap: 10px;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 10px;
+      background: #2b3449;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      border-radius: 10px;
+      transition: width .6s;
+    }
+
+    footer {
+      text-align: center;
+      padding: 38px 15px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 760px) {
+      header { padding: 17px 5%; }
+      nav { gap: 10px; font-size: 12px; }
+      .logo { font-size: 15px; }
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 65px;
+      }
+      .hero p { margin: auto; }
+      .actions { justify-content: center; }
+      .orb { width: 205px; }
+      .metrics { grid-template-columns: 1fr; }
+      section { padding: 45px 5%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a class="logo" href="#home">POKÉMON <span>NEXUS</span></a>
+    <nav>
+      <a href="#home">Início</a>
+      <a href="#pokedex">Pokédex</a>
+      <a href="#about">Projeto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div>
+        <div class="eyebrow">POKÉMON DATA EXPERIENCE</div>
+
+        <h1>EXPLORE O<br><span>POKÉMON NEXUS</span></h1>
+
+        <p>
+          Explore centenas de espécies, descubra estatísticas,
+          pesquise Pokémon e conheça um universo onde
+          tecnologia, dados e interatividade se encontram.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#pokedex">Explorar Pokédex →</a>
+          <a class="btn secondary"
+             href="https://github.com/iamgusta/Pokemon-nexus"
+             target="_blank" rel="noopener noreferrer">
+            Ver no GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="orb" aria-hidden="true"></div>
+    </section>
+
+    <section id="about" class="reveal">
+      <h2>Um universo conectado por dados</h2>
+      <p class="subtitle">
+        Pokémon Nexus é um projeto de portfólio que integra
+        conceitos de Engenharia de Dados, APIs, organização
+        de informações e desenvolvimento web.
+        Esta página é sua experiência interativa de apresentação.
+      </p>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="number" id="total">...</div>
+          <p>Registros da Pokédex</p>
+        </div>
+        <div class="metric">
+          <div class="number">9</div>
+          <p>Regiões principais</p>
+        </div>
+        <div class="metric">
+          <div class="number">API</div>
+          <p>Dados consultados em tempo real</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pokedex" class="reveal">
+      <div class="eyebrow">EXPLORE THE DATABASE</div>
+      <h2>Pokédex Interativa</h2>
+      <p class="subtitle">
+        Busque por nome ou número, filtre regiões
+        e clique em qualquer Pokémon para visualizar seus atributos.
+      </p>
+
+      <div class="toolbar">
+        <input
+          id="search"
+          type="search"
+          placeholder="Pesquisar Pokémon... Ex: Pikachu ou 25"
+          aria-label="Pesquisar Pokémon"
+        >
+
+        <select id="region" aria-label="Filtrar região">
+          <option value="all">Todas as regiões</option>
+          <option value="1-151">Kanto</option>
+          <option value="152-251">Johto</option>
+          <option value="252-386">Hoenn</option>
+          <option value="387-493">Sinnoh</option>
+          <option value="494-649">Unova</option>
+          <option value="650-721">Kalos</option>
+          <option value="722-809">Alola</option>
+          <option value="810-905">Galar</option>
+          <option value="906-1025">Paldea</option>
+        </select>
+
+        <button class="primary" id="random">Surpreenda-me</button>
+      </div>
+
+      <p class="subtitle" id="status" role="status">
+        Carregando Pokédex...
+      </p>
+
+      <div class="pokemon-grid" id="pokemonGrid"></div>
+
+      <div class="center">
+        <button id="loadMore" class="secondary" hidden>
+          Carregar mais Pokémon ↓
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div
+    class="modal"
+    id="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Detalhes do Pokémon"
+    aria-hidden="true"
+  >
+    <div class="modal-content">
+      <button class="close" id="closeModal" aria-label="Fechar">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>POKÉMON NEXUS</strong>
+    <p>Data Engineering • Python • SQL • API • JavaScript</p>
+    <p>Developed by Gustavo Lopes da Silva</p>
+    <p>Projeto independente, não afiliado à Nintendo, GAME FREAK ou The Pokémon Company.</p>
+  </footer>
+
+  <script>
+    const API = "https://pokeapi.co/api/v2";
+    const ART = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork";
+
+    const grid = document.getElementById("pokemonGrid");
+    const search = document.getElementById("search");
+    const region = document.getElementById("region");
+    const status = document.getElementById("status");
+    const loadMore = document.getElementById("loadMore");
+    const modal = document.getElementById("modal");
+    const modalBody = document.getElementById("modalBody");
+
+    let pokemonList = [];
+    let filtered = [];
+    let visibleCount = 24;
+    let lastFocused = null;
+
+    const sprite = id => `${ART}/${id}.png`;
+
+    function formatName(name) {
+      return name.replaceAll("-", " ");
+    }
+
+    function card(pokemon) {
+      const id = pokemon.id;
+
+      const el = document.createElement("article");
+      el.className = "pokemon-card";
+      el.tabIndex = 0;
+      el.setAttribute("role", "button");
+      el.setAttribute(
+        "aria-label",
+        `Ver detalhes de ${formatName(pokemon.name)}`
+      );
+
+      el.innerHTML = `
+        <span class="pokemon-id">#${String(id).padStart(4, "0")}</span>
+        <img loading="lazy" src="${sprite(id)}" alt="">
+        <h3></h3>
+        <span class="tag">Ver atributos ↗</span>
+      `;
+
+      el.querySelector("h3").textContent = formatName(pokemon.name);
+
+      el.addEventListener("click", () => showDetails(id));
+      el.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          showDetails(id);
+        }
+      });
+
+      return el;
+    }
+
+    function render() {
+      const items = filtered.slice(0, visibleCount);
+      grid.replaceChildren(...items.map(card));
+
+      status.textContent =
+        `${filtered.length} Pokémon encontrados • ${items.length} exibidos`;
+
+      loadMore.hidden = visibleCount >= filtered.length;
+    }
+
+    function filterPokemon() {
+      const query = search.value.trim().toLowerCase();
+      const selected = region.value;
+
+      filtered = pokemonList.filter(p => {
+        const matchesSearch =
+          p.name.includes(query) ||
+          String(p.id) === query;
+
+        if (!matchesSearch) return false;
+        if (selected === "all") return true;
+
+        const [min, max] = selected.split("-").map(Number);
+        return p.id >= min && p.id <= max;
+      });
+
+      visibleCount = 24;
+      render();
+    }
+
+    async function init() {
+      try {
+        const response = await fetch(
+          `${API}/pokemon-species?limit=2000`
+        );
+
+        if (!response.ok) throw new Error("API indisponível");
+
+        const data = await response.json();
+
+        pokemonList = data.results.map(p => ({
+          name: p.name,
+          id: Number(p.url.split("/").filter(Boolean).pop())
+        })).sort((a, b) => a.id - b.id);
+
+        document.getElementById("total").textContent =
+          pokemonList.length.toLocaleString("pt-BR");
+
+        filtered = [...pokemonList];
+        render();
+      } catch (error) {
+        status.textContent =
+          "Não foi possível carregar a Pokédex. Verifique sua conexão.";
+        console.error(error);
+      }
+    }
+
+    function statBar(stat) {
+      const value = stat.base_stat;
+      const percentage = Math.min(100, (value / 255) * 100);
+
+      const names = {
+        hp: "HP",
+        attack: "Ataque",
+        defense: "Defesa",
+        "special-attack": "Ataque Especial",
+        "special-defense": "Defesa Especial",
+        speed: "Velocidade"
+      };
+
+      const name = names[stat.stat.name] || stat.stat.name;
+
+      return `
+        <div class="stat">
+          <div class="stat-label">
+            <span>${name}</span>
+            <strong>${value}</strong>
+          </div>
+          <div class="bar">
+            <div class="fill" style="width:${percentage}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    async function showDetails(id) {
+      lastFocused = document.activeElement;
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+
+      modalBody.textContent = "Carregando informações...";
+      document.getElementById("closeModal").focus();
+
+      try {
+        const response = await fetch(`${API}/pokemon/${id}`);
+        if (!response.ok) throw new Error("Falha na consulta");
+
+        const data = await response.json();
+        const types = data.types.map(t => t.type.name);
+
+        modalBody.innerHTML = `
+          <span class="pokemon-id">
+            #${String(id).padStart(4, "0")}
+          </span>
+          <img src="${sprite(id)}" alt="">
+          <h2></h2>
+          <div id="pokemonTypes"></div>
+          <p class="subtitle">
+            Altura: ${(data.height / 10).toFixed(1)} m
+            • Peso: ${(data.weight / 10).toFixed(1)} kg
+          </p>
+          <h3>Base Stats</h3>
+          ${data.stats.map(statBar).join("")}
+        `;
+
+        modalBody.querySelector("h2").textContent =
+          formatName(data.name);
+
+        const typeContainer =
+          modalBody.querySelector("#pokemonTypes");
+
+        types.forEach(type => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = type;
+          typeContainer.appendChild(tag);
+        });
+
+      } catch (error) {
+        modalBody.textContent =
+          "Erro ao consultar os atributos deste Pokémon.";
+      }
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+    }
+
+    search.addEventListener("input", filterPokemon);
+    region.addEventListener("change", filterPokemon);
+
+    loadMore.addEventListener("click", () => {
+      visibleCount += 24;
+      render();
+    });
+
+    document.getElementById("random").addEventListener("click", () => {
+      if (!filtered.length) return;
+      const pokemon = filtered[Math.floor(Math.random() * filtered.length)];
+      showDetails(pokemon.id);
+    });
+
+    document.getElementById("closeModal")
+      .addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach(el => {
+      observer.observe(el);
+    });
+
+    init();
+  </script>
+
+</body>
+</html>
+  
