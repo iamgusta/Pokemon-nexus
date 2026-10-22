@@ -1,0 +1,612 @@
+
+/* POKEMON NEXUS - DECK BUILDER */
+
+.deck-screen {
+  padding: 34px 0 75px;
+  min-height: 80vh;
+  color: #eff3ff;
+}
+
+.deck-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 35px;
+}
+
+.deck-eyebrow {
+  color: #ffd369;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.deck-heading h1 {
+  font-size: clamp(42px, 5vw, 70px);
+  letter-spacing: -2.5px;
+  margin: 12px 0;
+}
+
+.deck-heading h1 em {
+  color: #ffcd58;
+  font-style: normal;
+}
+
+.deck-heading p {
+  color: #9cacca;
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+.deck-heading-icon {
+  display: grid;
+  place-items: center;
+  width: 105px;
+  height: 105px;
+  border-radius: 28px;
+  color: #ffd262;
+  border: 1px solid #656097;
+  background: radial-gradient(circle, #6650ab, #22203f);
+  box-shadow: 0 0 60px #8d6aff44;
+}
+
+.deck-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.deck-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 20px;
+  border: 1px solid #354566;
+  border-radius: 11px;
+  background: #16223a;
+  color: #b2c0dd;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.deck-tabs button.active {
+  background: #ffcf59;
+  border-color: #ffcf59;
+  color: #17223a;
+}
+
+.deck-builder-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(340px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.deck-inventory,
+.deck-editor {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #344362;
+  border-radius: 20px;
+  background: linear-gradient(155deg, #15223a, #0e172b);
+}
+
+.deck-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.deck-panel-heading span {
+  color: #ffcc60;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  font-weight: 900;
+}
+
+.deck-panel-heading h2 {
+  margin: 8px 0 0;
+  font-size: 23px;
+}
+
+.deck-panel-heading > b {
+  color: #a7b9d4;
+  font-size: 12px;
+}
+
+.deck-panel-heading > svg {
+  color: #ffd064;
+}
+
+.deck-search {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: #0c1629;
+  border: 1px solid #334562;
+  border-radius: 10px;
+  color: #8799b8;
+  padding: 12px 15px;
+  margin-bottom: 19px;
+}
+
+.deck-search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: none;
+  color: #fff;
+  font-size: 13px;
+}
+
+.deck-inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+  max-height: 740px;
+  padding: 5px 5px 12px;
+  overflow-y: auto;
+}
+
+.deck-inventory-item {
+  min-width: 0;
+  border-radius: 16px;
+  border: 1px solid #344461;
+  background: #111b31;
+  padding: 9px;
+}
+
+.deck-card-preview {
+  min-width: 0;
+}
+
+.deck-card-preview .tcg-card {
+  transform: none;
+}
+
+.deck-available {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 4px 3px;
+}
+
+.deck-available > span {
+  font-size: 10px;
+  color: #a2b4d2;
+}
+
+.deck-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.deck-quantity-controls button,
+.deck-selected-item button {
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border: 1px solid #46577a;
+  border-radius: 8px;
+  background: #263754;
+  color: #fff;
+}
+
+.deck-quantity-controls button:last-child {
+  background: #ffcb56;
+  color: #19223a;
+  border-color: #ffcb56;
+}
+
+.deck-quantity-controls button:disabled {
+  opacity: .3;
+  cursor: not-allowed;
+}
+
+.deck-quantity-controls strong {
+  font-size: 15px;
+}
+
+.deck-editor {
+  position: sticky;
+  top: 20px;
+}
+
+.deck-name-label,
+.deck-count-row {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  color: #9aacca;
+  font-weight: 800;
+}
+
+.deck-name-input {
+  width: 100%;
+  padding: 15px;
+  margin: 11px 0 24px;
+  outline: 0;
+  border: 1px solid #405274;
+  border-radius: 10px;
+  background: #0e192d;
+  color: white;
+}
+
+.deck-name-input:focus {
+  border-color: #ffcf59;
+}
+
+.deck-count-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deck-count-row strong {
+  font-size: 21px;
+  color: #ffcf59;
+  letter-spacing: 0;
+}
+
+.deck-progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #344461;
+  margin: 12px 0 24px;
+}
+
+.deck-progress-track > div {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8068ff, #ffd15b);
+}
+
+.deck-power {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #ffd15e;
+  padding: 17px;
+  border-radius: 12px;
+  background: #ffc94e0b;
+  border: 1px solid #ffc94e29;
+}
+
+.deck-power div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.deck-power small {
+  color: #9dadc6;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.deck-power strong {
+  font-size: 25px;
+  color: #fff;
+}
+
+.deck-editor-buttons {
+  display: grid;
+  gap: 9px;
+  margin: 20px 0;
+}
+
+.deck-editor-buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.deck-auto {
+  border: 1px solid #7368af;
+  background: #302752;
+  color: #e4d7ff;
+}
+
+.deck-reset {
+  border: 1px solid #3c4b69;
+  background: #17223a;
+  color: #a7b6d3;
+}
+
+.deck-selected-title {
+  margin: 25px 0 15px;
+  font-size: 15px;
+}
+
+.deck-selected-list {
+  display: grid;
+  gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.deck-selected-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #30415e;
+  background: #111c30;
+}
+
+.deck-selected-item img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.deck-selected-item > div {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deck-selected-item b {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.deck-selected-item small {
+  font-size: 10px;
+  color: #92a4c0;
+  text-transform: capitalize;
+}
+
+.deck-selected-item > span {
+  color: #ffd05e;
+  font-weight: 800;
+}
+
+.deck-selected-item button {
+  flex-shrink: 0;
+}
+
+.deck-mini-empty {
+  border: 1px dashed #3b4a66;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  font-size: 12px;
+  color: #899bb9;
+}
+
+.deck-save-footer {
+  margin-top: 25px;
+  border-top: 1px solid #344260;
+  padding-top: 18px;
+}
+
+.deck-save-footer p {
+  font-size: 11px;
+  color: #9eacc6;
+}
+
+.deck-save-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 11px;
+  background: #ffcf59;
+  color: #172038;
+  font-weight: 900;
+  padding: 16px;
+}
+
+.deck-save-button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.deck-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 17px;
+  border-radius: 11px;
+  margin: 15px 0;
+  font-size: 12px;
+}
+
+.deck-notice.success {
+  border: 1px solid #31785d;
+  background: #163a35;
+  color: #7becb8;
+}
+
+.deck-notice.error {
+  border: 1px solid #8e4558;
+  background: #452232;
+  color: #ff9bb2;
+}
+
+.deck-notice button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.saved-decks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.saved-deck {
+  padding: 25px;
+  border: 1px solid #3c4a6c;
+  border-radius: 18px;
+  background: linear-gradient(140deg, #202a4b, #111a31);
+}
+
+.saved-deck-icon {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+  color: #ffd15f;
+  border-radius: 17px;
+  background: #ffce5c12;
+}
+
+.saved-deck > span {
+  color: #8495b5;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.saved-deck h3 {
+  font-size: 21px;
+  margin: 12px 0;
+}
+
+.saved-deck p {
+  color: #a9b9d6;
+  font-size: 13px;
+}
+
+.saved-deck-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.saved-deck-actions button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #4b5d7e;
+  background: #263858;
+  border-radius: 9px;
+  color: white;
+  padding: 11px;
+  font-size: 11px;
+}
+
+.saved-deck-actions .delete {
+  border-color: #814051;
+  color: #ffa2b2;
+  background: #442331;
+}
+
+.deck-empty,
+.deck-loading {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px dashed #364666;
+  border-radius: 18px;
+  padding: 65px 20px;
+  color: #9baccc;
+}
+
+.deck-empty h3 {
+  color: white;
+  margin: 0;
+}
+
+.deck-empty p {
+  font-size: 13px;
+}
+
+.deck-empty button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 10px;
+  background: #ffcf59;
+  color: #172039;
+  padding: 13px 20px;
+  font-weight: 800;
+}
+
+.deck-spin {
+  animation: deck-spin 1s linear infinite;
+}
+
+@keyframes deck-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1250px) {
+  .deck-builder-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .deck-editor {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .deck-heading-icon {
+    display: none;
+  }
+
+  .deck-heading h1 {
+    font-size: 42px;
+  }
+
+  .deck-inventory,
+  .deck-editor {
+    padding: 13px;
+  }
+
+  .deck-inventory-grid {
+    gap: 9px;
+  }
+
+  .deck-available {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .deck-quantity-controls {
+    justify-content: center;
+  }
+
+  .saved-decks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-spin {
+    animation: none;
+  }
+}

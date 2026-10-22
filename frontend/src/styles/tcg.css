@@ -1,0 +1,866 @@
+
+/* ============================================
+   POKEMON NEXUS - TCG SYSTEM
+   BOOSTER ARENA + COLLECTION + COOLDOWN
+   ============================================ */
+
+.tcg-screen {
+  min-height: 75vh;
+  padding: 32px 0 70px;
+  color: #f3f5ff;
+}
+
+.tcg-section-title {
+  margin-bottom: 32px;
+}
+
+.tcg-section-title > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #ffd36a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.tcg-section-title h1 {
+  margin: 14px 0;
+  font-size: clamp(38px, 5vw, 70px);
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.tcg-section-title h1 em {
+  color: #ffd05a;
+  font-style: normal;
+}
+
+.tcg-section-title p {
+  color: #99aaca;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* ============================================
+   BOOSTER ARENA
+   ============================================ */
+
+.booster-stage {
+  position: relative;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8%;
+  padding: 45px;
+  overflow: hidden;
+  border: 1px solid #45558c;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 28% 45%, #523ba16a, transparent 42%),
+    radial-gradient(circle at 82% 30%, #2945a56e, transparent 50%),
+    linear-gradient(135deg, #172242, #11152d);
+}
+
+.booster-stage-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.booster-circle {
+  position: absolute;
+  width: 410px;
+  height: 410px;
+  top: 50%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed #d6d1ff45;
+  border-radius: 50%;
+}
+
+.booster-circle.circle-two {
+  width: 325px;
+  height: 325px;
+  border-style: solid;
+  box-shadow: 0 0 90px #8b5cff33;
+}
+
+.booster-pack {
+  position: relative;
+  z-index: 2;
+  width: 240px;
+  height: 365px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 3px solid #bd98ff;
+  border-radius: 12px;
+  background:
+    linear-gradient(130deg, #ffffff40, transparent 35%),
+    radial-gradient(circle at 50% 46%, #6549e8, #242052 60%),
+    #20153b;
+  box-shadow:
+    0 0 60px #925bff61,
+    0 25px 55px #0009,
+    inset 0 0 25px #ffffff28;
+}
+
+.booster-pack::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    #ffffff28 48%,
+    transparent 56%
+  );
+  animation: foil-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes foil-shimmer {
+  from { transform: translateX(-65%); }
+  to { transform: translateX(65%); }
+}
+
+.booster-foil {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 23px;
+  background: repeating-linear-gradient(
+    90deg,
+    #9e82ef,
+    #dac8ff 8px,
+    #8a67d9 16px
+  );
+}
+
+.booster-foil.top-foil {
+  top: 0;
+}
+
+.booster-foil.bottom-foil {
+  bottom: 0;
+}
+
+.booster-pack-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+
+.booster-pack-content > svg {
+  color: #ffdd73;
+}
+
+.booster-pack-content h2 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.booster-pack-content > strong {
+  color: #ffd66d;
+  font-size: 19px;
+  letter-spacing: 8px;
+}
+
+.booster-emblem {
+  margin: 14px 0;
+  color: #ffd65b;
+  filter: drop-shadow(0 0 24px #ffd15e);
+}
+
+.booster-pack-content > span {
+  color: #e4d8ff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.booster-pack-content > small {
+  color: #b8a6e8;
+  font-size: 10px;
+}
+
+.booster-information {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 385px;
+}
+
+.booster-edition {
+  color: #ffd76a;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.booster-information h2 {
+  margin: 20px 0;
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+
+.booster-information p {
+  color: #a9b7d5;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.open-booster-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 16px 25px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffdc6e, #ffb83f);
+  color: #182139;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 10px 30px #ffb8423f;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.open-booster-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.open-booster-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.booster-note {
+  display: block;
+  margin-top: 16px;
+  color: #8d9dc0;
+  font-size: 11px;
+}
+
+/* ============================================
+   COOLDOWN
+   ============================================ */
+
+.booster-cooldown {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #7864ac;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #2c2255, #151b39);
+  box-shadow: 0 0 35px #9569ff24;
+}
+
+.cooldown-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #c7afff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+}
+
+.cooldown-time {
+  margin: 15px 0;
+  color: #ffd56b;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 62px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 4px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 25px #ffce6255;
+}
+
+.cooldown-track {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #354166;
+}
+
+.cooldown-track > div {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8f75ff, #ffd05c);
+  transition: width 0.6s ease;
+}
+
+/* ============================================
+   TCG CARDS
+   ============================================ */
+
+.tcg-card {
+  --rarity-color: #aeb9cf;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 12px;
+  border: 3px solid var(--rarity-color);
+  border-radius: 19px;
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      color-mix(in srgb, var(--rarity-color) 25%, transparent),
+      transparent 68%
+    ),
+    linear-gradient(150deg, #243154, #11192d);
+  box-shadow:
+    inset 0 0 22px #ffffff0a,
+    0 12px 35px #0006;
+}
+
+.rarity-rare,
+.rarity-epic,
+.rarity-legendary {
+  box-shadow:
+    0 0 26px color-mix(
+      in srgb,
+      var(--rarity-color) 30%,
+      transparent
+    ),
+    0 12px 35px #0007;
+}
+
+.rarity-legendary {
+  background:
+    radial-gradient(circle at 50% 25%, #ffd65c64, transparent 65%),
+    linear-gradient(155deg, #715123, #201c2f);
+}
+
+.tcg-card-shine {
+  position: absolute;
+  inset: -50%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 37%,
+    #ffffff25 48%,
+    transparent 59%
+  );
+  transform: translateX(-70%);
+}
+
+.tcg-card:hover .tcg-card-shine {
+  animation: foil-shimmer 1.1s ease;
+}
+
+.tcg-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #d4def5;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tcg-card-header svg {
+  color: var(--rarity-color);
+}
+
+.tcg-card-image {
+  position: relative;
+  height: 190px;
+  display: grid;
+  place-items: center;
+}
+
+.tcg-card-image img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 16px #000a);
+}
+
+.tcg-card-body h3 {
+  margin: 6px 0 12px;
+  font-size: 19px;
+  overflow-wrap: anywhere;
+}
+
+.tcg-rarity {
+  display: inline-flex;
+  padding: 6px 10px;
+  border: 1px solid var(--rarity-color);
+  border-radius: 7px;
+  background: color-mix(
+    in srgb,
+    var(--rarity-color) 18%,
+    transparent
+  );
+  color: var(--rarity-color);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.tcg-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 17px;
+  padding-top: 13px;
+  border-top: 1px solid #ffffff24;
+}
+
+.tcg-card-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tcg-card-stats small {
+  color: #a0afc9;
+  font-size: 10px;
+}
+
+.tcg-card-stats b {
+  font-size: 19px;
+}
+
+.tcg-power {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 17px;
+  color: var(--rarity-color);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.tcg-power strong {
+  margin-left: auto;
+  font-size: 15px;
+}
+
+.tcg-quantity {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 37px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: #080d1ecf;
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tcg-compact .tcg-card-image {
+  height: 155px;
+}
+
+.tcg-compact .tcg-card-body h3 {
+  font-size: 16px;
+}
+
+/* ============================================
+   BOOSTER REVEAL
+   ============================================ */
+
+.booster-reveal-area {
+  min-height: 520px;
+  padding: 30px;
+  border: 1px solid #394777;
+  border-radius: 22px;
+  background: #111a32;
+}
+
+.reveal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.reveal-heading span {
+  color: #ffcf5c;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.reveal-heading h2 {
+  font-size: 29px;
+}
+
+.reveal-close {
+  padding: 11px;
+  border: 1px solid #425277;
+  border-radius: 10px;
+  background: #263453;
+  color: white;
+}
+
+.reveal-progress {
+  margin: 20px 0;
+}
+
+.reveal-progress > span {
+  color: #aab9d6;
+  font-size: 12px;
+}
+
+.reveal-progress > div {
+  height: 7px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #34405e;
+}
+
+.reveal-progress > div > div {
+  height: 100%;
+  background: #ffcb58;
+}
+
+.reveal-card-zone {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
+}
+
+.reveal-unknown,
+.reveal-complete {
+  text-align: center;
+}
+
+.unknown-card {
+  width: 190px;
+  height: 265px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  border: 3px solid #bd91ff;
+  border-radius: 17px;
+  background: linear-gradient(135deg, #382a7b, #0c1839);
+  color: #ffd76d;
+  box-shadow: 0 0 45px #a26aff55;
+  animation: mystery-float 2.8s ease-in-out infinite;
+}
+
+.unknown-card b {
+  font-size: 21px;
+  letter-spacing: 4px;
+}
+
+.unknown-card span {
+  font-size: 44px;
+  font-weight: 900;
+}
+
+@keyframes mystery-float {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.reveal-complete {
+  padding: 38px;
+  color: #6be6b6;
+}
+
+.reveal-complete h3 {
+  color: #fff;
+  font-size: 25px;
+}
+
+.reveal-complete p {
+  color: #9badcd;
+}
+
+.revealed-cards-grid,
+.tcg-collection-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 15px;
+  margin: 28px 0;
+}
+
+.booster-loading {
+  display: grid;
+  place-items: center;
+  padding: 120px 20px;
+  color: #ffce62;
+}
+
+.booster-loading p {
+  color: #a7b9d9;
+}
+
+.tcg-error {
+  padding: 13px;
+  color: #ff8d9c;
+}
+
+/* ============================================
+   MY COLLECTION
+   ============================================ */
+
+.collection-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.collection-overview > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 23px;
+  border: 1px solid #344361;
+  border-radius: 16px;
+  background: #141f37;
+}
+
+.collection-overview svg {
+  color: #ffcf61;
+}
+
+.collection-overview strong {
+  font-size: 32px;
+}
+
+.collection-overview small {
+  color: #a3b3cc;
+}
+
+.collection-progress {
+  margin: 25px 0;
+  padding: 24px;
+  border: 1px solid #344361;
+  border-radius: 16px;
+  background: #121d32;
+}
+
+.collection-progress > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.collection-progress span {
+  color: #ffd16b;
+}
+
+.collection-progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #34415e;
+}
+
+.collection-progress-track > div {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #6b8eff, #ffcf60);
+}
+
+.collection-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 30px 0;
+}
+
+.collection-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.collection-filters button,
+.tcg-refresh {
+  padding: 10px 14px;
+  border: 1px solid #344361;
+  border-radius: 10px;
+  background: #17233d;
+  color: #b4c1d9;
+  font-size: 12px;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.collection-filters button:hover,
+.tcg-refresh:hover {
+  border-color: #ffd161;
+  color: white;
+}
+
+.collection-filters button.active {
+  border-color: #ffd161;
+  background: #ffd161;
+  color: #10182b;
+}
+
+.tcg-refresh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tcg-empty {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  padding: 75px 20px;
+  border: 1px dashed #344361;
+  border-radius: 16px;
+  color: #9daccc;
+  text-align: center;
+}
+
+.tcg-empty h3 {
+  margin: 0;
+  color: #fff;
+}
+
+/* ============================================
+   BOTTOM NOTE
+   ============================================ */
+
+.tcg-bottom-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+  color: #7385a6;
+  font-size: 12px;
+}
+
+/* ============================================
+   RESPONSIVENESS
+   ============================================ */
+
+@media (max-width: 1300px) {
+  .revealed-cards-grid,
+  .tcg-collection-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .booster-stage {
+    gap: 5%;
+    padding: 35px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .revealed-cards-grid,
+  .tcg-collection-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .booster-stage {
+    flex-direction: column;
+    gap: 55px;
+    padding: 50px 25px;
+    text-align: center;
+  }
+
+  .booster-circle {
+    top: 30%;
+    left: 50%;
+  }
+
+  .booster-information {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 700px) {
+  .tcg-screen {
+    padding: 25px 0 60px;
+  }
+
+  .tcg-section-title h1 {
+    font-size: 42px;
+  }
+
+  .collection-overview {
+    gap: 9px;
+  }
+
+  .collection-overview > div {
+    padding: 13px;
+  }
+
+  .collection-overview strong {
+    font-size: 24px;
+  }
+
+  .collection-overview small {
+    font-size: 10px;
+  }
+
+  .revealed-cards-grid,
+  .tcg-collection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .tcg-card {
+    padding: 9px;
+  }
+
+  .tcg-card-image,
+  .tcg-compact .tcg-card-image {
+    height: 135px;
+  }
+
+  .tcg-card-body h3 {
+    font-size: 14px;
+  }
+
+  .booster-reveal-area {
+    padding: 16px;
+  }
+
+  .booster-pack {
+    width: 210px;
+    height: 330px;
+  }
+
+  .collection-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cooldown-time {
+    font-size: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unknown-card,
+  .booster-pack::before,
+  .tcg-card-shine {
+    animation: none !important;
+  }
+
+  .cooldown-track > div {
+    transition: none;
+  }
+}
